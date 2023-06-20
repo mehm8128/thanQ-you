@@ -6,7 +6,7 @@ export interface Tea {
 	to: string
 	created_at: string
 }
-export interface TeaWithUnread {
+export interface TeaWithUnread extends Tea {
 	unread: boolean
 }
 

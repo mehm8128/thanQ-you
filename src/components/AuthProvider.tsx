@@ -15,11 +15,11 @@ const fetchMe = async (): Promise<Me> => {
 	return await res.json()
 }
 
-export function AuthProviders({ children }: { children: React.ReactNode }) {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const [me, setMe] = useRecoilState(meState)
 
 	useEffect(() => {
-		if (!me.name) return
+		if (me.name) return
 		;(async () => {
 			const me = await fetchMe()
 			setMe(me)
