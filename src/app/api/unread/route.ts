@@ -5,7 +5,9 @@ import { TeaRow } from '@/app/api/teas/[userId]/route'
 import { getShowcaseUser } from '@/libs/auth'
 import { connectDb } from '@/libs/db'
 
-type Unread = TeaRow
+interface Unread extends TeaRow {
+	unread: boolean
+}
 
 export async function GET(req: NextRequest) {
 	const userID = getShowcaseUser(req)
@@ -26,9 +28,12 @@ export async function GET(req: NextRequest) {
 		connection = await connectDb()
 
 		const [rows] = await connection.execute<Unread[]>(
-			'SELECT * FROM teas WHERE `to` = ? AND unread = true LIMIT ? OFFSET ?',
+			'SELECT * FROM teas WHERE `to` = ? LIMIT ? OFFSET ?',
 			[userID, limit, offset],
 		)
+		await connection.execute('UPDATE teas SET unread = false WHERE `to` = ? AND unread = true', [
+			userID,
+		])
 
 		return NextResponse.json(rows)
 	} catch (e) {
