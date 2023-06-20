@@ -5,20 +5,10 @@ import { v4 as uuidv4 } from 'uuid'
 import { getShowcaseUser } from '@/libs/auth'
 import { connectDb } from '@/libs/db'
 
-interface Tea {
-	id: string
-	count: number
-	message: string
-	from: string
-	to: string
-	created_at: string
-}
-export type TeaRow = RowDataPacket & Tea
+import { Tea, TeaRequest, TeasResponse } from '@/model/tea'
 
-interface TeasResponse {
-	teas: Tea[]
-	total_count: number
-}
+export type TeaRow = Tea & RowDataPacket
+
 interface TeaTotalCount extends RowDataPacket {
 	total_count: number
 }
@@ -57,18 +47,13 @@ export async function GET(req: NextRequest, context: { params: { userId: string 
 	}
 }
 
-interface TeaBody {
-	count: number
-	message: string
-}
-
 export async function POST(req: NextRequest, context: { params: { userId: string } }) {
 	const userID = getShowcaseUser(req)
 	if (!userID) {
 		return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 	}
 	const targetUserId = context.params.userId
-	const data: TeaBody = await req.json()
+	const data: TeaRequest = await req.json()
 
 	let connection: Connection | undefined
 	try {

@@ -35,7 +35,7 @@
 						"position": "before"
 					},
 					{
-						"pattern": "{@/app/**,@/features/**,@/libs/**}",
+						"pattern": "{@/app/**,@/features/**}",
 						"group": "internal",
 						"position": "before"
 					},

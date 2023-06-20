@@ -4,9 +4,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getShowcaseUser } from '@/libs/auth'
 import { connectDb } from '@/libs/db'
 
-interface User extends RowDataPacket {
-	name: string
-}
+import { User as UserType } from '@/model/user'
+
+type User = UserType & RowDataPacket
 
 export async function GET(req: NextRequest) {
 	const userID = getShowcaseUser(req)
