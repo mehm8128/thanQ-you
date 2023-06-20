@@ -12,22 +12,30 @@ export async function GET(req: NextRequest) {
 	if (!userID) {
 		return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 	}
-	const limit = Number(req.nextUrl.searchParams.get('limit'))
-	const offset = Number(req.nextUrl.searchParams.get('offset'))
+	let limit = 10
+	if (req.nextUrl.searchParams.has('limit')) {
+		limit = Number(req.nextUrl.searchParams.get('limit'))
+	}
+	let offset = 0
+	if (req.nextUrl.searchParams.has('offset')) {
+		offset = Number(req.nextUrl.searchParams.get('offset'))
+	}
 
 	let connection: Connection | undefined
 	try {
 		connection = await connectDb()
 
 		const [rows] = await connection.execute<Unread[]>(
-			'SELECT * FROM teas WHERE to = ? LIMIT ? OFFSET ?',
+			'SELECT * FROM teas WHERE `to` = ? AND unread = true LIMIT ? OFFSET ?',
 			[userID, limit, offset],
 		)
 
 		return NextResponse.json(rows)
-	} catch {
+	} catch (e) {
 		await connection?.rollback()
-		return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+		if (e instanceof Error) {
+			return NextResponse.json({ error: e.message }, { status: 500 })
+		}
 	} finally {
 		await connection?.end()
 	}

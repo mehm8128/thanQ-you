@@ -8,8 +8,8 @@ interface TraQUser {
 }
 type TraQUserRow = RowDataPacket & TraQUser
 
-export async function init() {
-	const secret = process.env.NEXT_PUBLIC_TRAQ_CLIENT_SECRET
+export async function GET() {
+	const secret = process.env.NEXT_PUBLIC_TRAQ_ACCESS_TOKEN
 	const res = await fetch('https://q.trap.jp/api/v3/users', {
 		headers: {
 			Authorization: `Bearer ${secret}`,

@@ -1,12 +1,8 @@
-import { Connection, RowDataPacket } from 'mysql2/promise'
+import { Connection } from 'mysql2/promise'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { getShowcaseUser } from '@/libs/auth'
 import { connectDb } from '@/libs/db'
-
-interface User extends RowDataPacket {
-	name: string
-}
 
 export async function GET(req: NextRequest) {
 	const userID = getShowcaseUser(req)
@@ -18,10 +14,11 @@ export async function GET(req: NextRequest) {
 	try {
 		connection = await connectDb()
 
-		//todo: アプリ起動時にtraQから取ってDBに入れるように
-		const [rows] = await connection.execute<User[]>('SELECT name FROM users')
+		await connection.execute('UPDATE teas SET unread = false WHERE `to` = ? AND unread = true', [
+			userID,
+		])
 
-		return NextResponse.json(rows)
+		return NextResponse.json('ok')
 	} catch (e) {
 		await connection?.rollback()
 		if (e instanceof Error) {

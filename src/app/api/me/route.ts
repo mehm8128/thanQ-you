@@ -21,12 +21,15 @@ export async function GET(req: NextRequest) {
 	try {
 		connection = await connectDb()
 
-		const [rows] = await connection.execute<Me[]>('SELECT * FROM users WHERE id = ?', [userID])
+		const [rows] = await connection.execute<Me[]>('SELECT * FROM users WHERE name = ?', [userID])
 
 		return NextResponse.json(rows[0])
-	} catch {
+	} catch (e) {
 		await connection?.rollback()
-		return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+		// todo: 共通化
+		if (e instanceof Error) {
+			return NextResponse.json({ error: e.message }, { status: 500 })
+		}
 	} finally {
 		await connection?.end()
 	}

@@ -19,6 +19,9 @@ interface TeasResponse {
 	teas: Tea[]
 	total_count: number
 }
+interface TeaTotalCount extends RowDataPacket {
+	total_count: number
+}
 
 export async function GET(req: NextRequest, context: { params: { userId: string } }) {
 	const userID = getShowcaseUser(req)
@@ -31,24 +34,24 @@ export async function GET(req: NextRequest, context: { params: { userId: string 
 	try {
 		connection = await connectDb()
 
-		const [rows] = await connection.execute<TeaRow[]>('SELECT * FROM teas WHERE to = ?', [
+		const [rows] = await connection.execute<TeaRow[]>('SELECT * FROM teas WHERE `to` = ?', [
 			targetUserId,
 		])
-		const [rows2] = await connection.execute(
-			'SELECT SUM(count) as total_count FROM teas WHERE to = ?',
+		const [rows2] = await connection.execute<TeaTotalCount[]>(
+			'SELECT SUM(count) as total_count FROM teas WHERE `to` = ?',
 			[userID],
 		)
-		console.log(rows)
-		console.log(rows2)
 
 		const res: TeasResponse = {
 			teas: rows,
-			total_count: rows2 as any as number, // todo:
+			total_count: rows2[0].total_count,
 		}
 		return NextResponse.json(res)
-	} catch {
+	} catch (e) {
 		await connection?.rollback()
-		return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+		if (e instanceof Error) {
+			return NextResponse.json({ error: e.message }, { status: 500 })
+		}
 	} finally {
 		await connection?.end()
 	}
@@ -72,10 +75,10 @@ export async function POST(req: NextRequest, context: { params: { userId: string
 		connection = await connectDb()
 
 		const uuid = uuidv4()
-		const createdAt = new Date().toISOString()
+		const createdAt = new Date().toISOString().slice(0, 19).replace('T', ' ')
 		await connection.execute<TeaRow[]>(
-			'INSERT INTO teas (id, count, message, from, to, created_at, unread) VALUES (?, ?, ?, ?, ?, ?, ?)',
-			[uuidv4(), data.count, data.message, userID, targetUserId, createdAt, true],
+			'INSERT INTO teas (id, count, message, `from`, `to`, created_at, unread) VALUES (?, ?, ?, ?, ?, ?, ?)',
+			[uuid, data.count, data.message, userID, targetUserId, createdAt, true],
 		)
 
 		const res: Tea = {
@@ -87,9 +90,11 @@ export async function POST(req: NextRequest, context: { params: { userId: string
 			created_at: createdAt,
 		}
 		return NextResponse.json(res)
-	} catch {
+	} catch (e) {
 		await connection?.rollback()
-		return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+		if (e instanceof Error) {
+			return NextResponse.json({ error: e.message }, { status: 500 })
+		}
 	} finally {
 		await connection?.end()
 	}
