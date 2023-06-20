@@ -1,7 +1,9 @@
 import { style } from '@vanilla-extract/css'
 
-export const container = style({})
-export const header = style({})
-export const teas = style({})
-export const notification = style({})
-export const tea = style({})
+export const styles = {
+	container: style({}),
+	header: style({}),
+	teas: style({}),
+	notification: style({}),
+	tea: style({}),
+}

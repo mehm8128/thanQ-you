@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { getShowcaseUser } from '@/libs/auth'
 import { connectDb } from '@/libs/db'
-
 import { Tea, TeaRequest, TeasResponse } from '@/model/tea'
 
 export type TeaRow = Tea & RowDataPacket

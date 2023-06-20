@@ -1,15 +1,15 @@
-import { container, form, header, notification, tea, teas } from './style.css'
+import { styles } from './style.css'
 
 export default function UserTea({ params: { userId } }: { params: { userId: string } }) {
 	return (
-		<div className={container}>
-			<div className={header}>
-				<div className={teas}></div>
-				<div className={notification}></div>
+		<div className={styles.container}>
+			<div className={styles.header}>
+				<div className={styles.teas}></div>
+				<div className={styles.notification}></div>
 			</div>
-			<div className={tea}>
+			<div className={styles.tea}>
 				<div></div>
-				<div className={form}></div>
+				<div className={styles.form}></div>
 			</div>
 		</div>
 	)

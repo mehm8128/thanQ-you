@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { getShowcaseUser } from '@/libs/auth'
 import { connectDb } from '@/libs/db'
-
 import { User as UserType } from '@/model/user'
 
 type User = UserType & RowDataPacket

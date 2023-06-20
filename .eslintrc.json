@@ -45,6 +45,11 @@
 						"position": "before"
 					},
 					{
+						"pattern": "{@/stores/**,@/model/**,@/libs/**}",
+						"group": "internal",
+						"position": "after"
+					},
+					{
 						"pattern": "./style.css.ts",
 						"group": "internal",
 						"position": "after"
