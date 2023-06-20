@@ -40,7 +40,7 @@ export default function Teas() {
 			{shownTeas.map((_, i) => (
 				<div key={i}>
 					<Image
-						src='/public/coffee_max_small.png'
+						src='/coffee_max_small.png'
 						alt='coffee'
 						width={32}
 						height={32}

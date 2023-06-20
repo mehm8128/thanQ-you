@@ -23,7 +23,7 @@ export default function Notification() {
 		<div className={styles.container}>
 			<button onClick={handleClick}>
 				<Image
-					src='/public/notification.png'
+					src='/notification.png'
 					alt='notification'
 					width={32}
 					height={32}

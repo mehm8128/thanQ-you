@@ -12,7 +12,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 	return (
 		<RecoilRoot>
 			<AuthProvider>
-				<MantineProvider>{children}</MantineProvider>
+				<MantineProvider withNormalizeCSS>{children}</MantineProvider>
 			</AuthProvider>
 		</RecoilRoot>
 	)
