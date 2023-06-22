@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css'
 
 export const styles = {
-	container: style({}),
-	tea: style({}),
-	form: style({}),
+	container: style({
+		maxWidth: '16rem',
+	}),
 }

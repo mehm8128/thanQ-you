@@ -34,19 +34,26 @@ export default function Teas() {
 	)
 
 	const shownTeas = calcTeas(teas)
+	const totalTeas = teas ? teas.reduce((sum, tea) => sum + tea.count, 0) : 0
 
 	return (
 		<div className={styles.container}>
-			{shownTeas.map((_, i) => (
-				<div key={i}>
-					<Image
-						src='/coffee_max_small.png'
-						alt='coffee'
-						width={32}
-						height={32}
-					/>
-				</div>
-			))}
+			<div className={styles.teas}>
+				{shownTeas.slice(0, 100).map((tea, i) => (
+					<div key={i}>
+						<Image
+							src={
+								tea === 5 ? '/coffee_max_small.svg' : '/coffee_empty_small.svg'
+							}
+							alt={tea.toString()}
+							width={32}
+							height={32}
+						/>
+					</div>
+				))}
+				{shownTeas.length > 100 && <div>+{shownTeas.length - 100}</div>}
+			</div>
+			<div className={styles.total}>感謝された数：{totalTeas}</div>
 		</div>
 	)
 }

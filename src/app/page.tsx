@@ -1,14 +1,52 @@
 import { styles } from '@/app/style.css'
 
-import Notification from '@/components/Notification'
-import Teas from '@/components/Teas'
+import Header from '@/components/Header'
 import UserSelect from '@/components/UserSelect'
 
 import { getApiOrigin } from '@/libs/env'
+import { TeaWithUnread } from '@/model/tea'
 import { User } from '@/model/user'
 
 const useUsers = async (): Promise<User[]> => {
+	return [{ name: 'mehm8128' }, { name: 'mehm8128128' }]
 	const res = await fetch(`${getApiOrigin()}/api/users`, {
+		next: { revalidate: 60 },
+	})
+	if (!res.ok) throw new Error('エラーが発生しました')
+	return await res.json()
+}
+
+const useUnreads = async (): Promise<TeaWithUnread[]> => {
+	return [
+		{
+			id: 'id2',
+			count: 5,
+			message: 'arigatou!',
+			from: 'mehm8128',
+			to: 'mehm8128',
+			created_at: '2021-12-10T00:00:00.000Z',
+			unread: true,
+		},
+		{
+			id: 'id2',
+			count: 5,
+			message: 'arigatou!',
+			from: 'mehm8128',
+			to: 'mehm8128',
+			created_at: '2021-12-10T00:00:00.000Z',
+			unread: true,
+		},
+		{
+			id: 'id2',
+			count: 5,
+			message: 'arigatou!',
+			from: 'mehm8128',
+			to: 'mehm8128',
+			created_at: '2021-12-10T00:00:00.000Z',
+			unread: true,
+		},
+	]
+	const res = await fetch(`${getApiOrigin()}/api/unreads`, {
 		next: { revalidate: 60 },
 	})
 	if (!res.ok) throw new Error('エラーが発生しました')
@@ -17,18 +55,12 @@ const useUsers = async (): Promise<User[]> => {
 
 export default async function Home() {
 	const users = await useUsers()
+	const unreads = await useUnreads()
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.header}>
-				<div className={styles.teas}>
-					<Teas />
-					<UserSelect users={users} />
-				</div>
-				<div className={styles.notification}>
-					<Notification />
-				</div>
-			</div>
+			<Header unreads={unreads} />
+			<UserSelect users={users} />
 			<div className={styles.tea}></div>
 		</div>
 	)

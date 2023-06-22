@@ -3,9 +3,9 @@
 import { NativeSelect } from '@mantine/core'
 import { useRouter } from 'next/navigation'
 
-import { styles } from '@/app/style.css'
-
 import { User } from '@/model/user'
+
+import { styles } from './style.css'
 
 interface Props {
 	users: User[]
