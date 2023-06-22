@@ -8,7 +8,6 @@ export const styles = {
 	teas: style({
 		display: 'flex',
 		flexDirection: 'column',
-		gap: '0.5rem',
 	}),
 	notification: style({
 		marginLeft: '4rem',

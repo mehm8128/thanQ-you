@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import { styles } from '@/app/style.css'
 
 import Header from '@/components/Header'
@@ -61,7 +63,9 @@ export default async function Home() {
 		<div className={styles.container}>
 			<Header unreads={unreads} />
 			<UserSelect users={users} />
-			<div className={styles.tea}></div>
+			<div className={styles.tea}>
+				<Image src='/coffee_empty.png' alt='tea' width={420} height={420} />
+			</div>
 		</div>
 	)
 }

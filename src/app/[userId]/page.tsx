@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import Header from '@/components/Header'
 import TeaForm from '@/components/TeaForm'
 
@@ -54,7 +56,16 @@ export default async function UserTea({
 		<div className={styles.container}>
 			<Header unreads={unreads} />
 			<div className={styles.tea}>
-				<div></div>
+				<div className={styles.tea}>
+					<Image src='/coffee_empty.png' alt='tea' width={420} height={420} />
+					<Image
+						src='/pot.png'
+						alt='tea'
+						width={360}
+						height={360}
+						className={styles.pot}
+					/>
+				</div>
 				<div className={styles.form}>
 					<TeaForm />
 				</div>
