@@ -4,6 +4,7 @@ export const styles = {
 	header: style({
 		display: 'flex',
 		justifyContent: 'space-between',
+		paddingBottom: '1rem',
 	}),
 	teas: style({
 		display: 'flex',

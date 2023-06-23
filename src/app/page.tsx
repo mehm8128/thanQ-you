@@ -1,8 +1,7 @@
-import Image from 'next/image'
-
 import { styles } from '@/app/style.css'
 
 import Header from '@/components/Header'
+import TeaImage from '@/components/TeaImage'
 import UserSelect from '@/components/UserSelect'
 
 import { getApiOrigin } from '@/libs/env'
@@ -64,7 +63,7 @@ export default async function Home() {
 			<Header unreads={unreads} />
 			<UserSelect users={users} />
 			<div className={styles.tea}>
-				<Image src='/coffee_empty.png' alt='tea' width={420} height={420} />
+				<TeaImage />
 			</div>
 		</div>
 	)
