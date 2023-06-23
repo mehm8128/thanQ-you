@@ -1,6 +1,6 @@
 'use client'
 
-import { NativeSelect } from '@mantine/core'
+import { Select } from '@mantine/core'
 import { useRouter } from 'next/navigation'
 import { useRecoilValue } from 'recoil'
 
@@ -21,10 +21,10 @@ export default function UserSelect({ users }: Props) {
 	}
 	return (
 		<div className={styles.container}>
-			<NativeSelect
+			<Select
 				label=''
 				placeholder='ユーザーを選択'
-				onChange={e => handleSelectUser(e.currentTarget.value)}
+				onChange={val => val && handleSelectUser(val)}
 				data={users.map(user => user.name).filter(user => user !== me.name)}
 			/>
 		</div>
