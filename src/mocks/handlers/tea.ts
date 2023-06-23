@@ -22,15 +22,18 @@ export const teaHanlders = (apiOrigin: string) => {
 		},
 	)
 
-	const postTea = rest.get(`${apiOrigin}/api/teas/:userId`, (req, res, ctx) => {
-		return res(
-			ctx.status(200),
-			ctx.json<TeaRequest>({
-				count: 3,
-				message: 'thank you!',
-			}),
-		)
-	})
+	const postTea = rest.post(
+		`${apiOrigin}/api/teas/:userId`,
+		(req, res, ctx) => {
+			return res(
+				ctx.status(200),
+				ctx.json<TeaRequest>({
+					count: 3,
+					message: 'thank you!',
+				}),
+			)
+		},
+	)
 
 	return { fetchUserTeas, postTea }
 }

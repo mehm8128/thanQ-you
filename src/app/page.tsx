@@ -62,9 +62,7 @@ export default async function Home() {
 		<div className={styles.container}>
 			<Header unreads={unreads} />
 			<UserSelect users={users} />
-			<div className={styles.tea}>
-				<TeaImage />
-			</div>
+			<TeaImage />
 		</div>
 	)
 }
