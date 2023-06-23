@@ -19,6 +19,7 @@ export default function UserSelect({ users }: Props) {
 	const handleSelectUser = (userId: string) => {
 		router.push(`/${userId}`)
 	}
+
 	return (
 		<div className={styles.container}>
 			<Select

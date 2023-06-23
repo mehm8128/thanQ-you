@@ -6,7 +6,7 @@ import useSWR from 'swr'
 
 import { getApiOrigin } from '@/libs/env'
 import { fetcher } from '@/libs/fetcher'
-import { Tea } from '@/model/tea'
+import { Tea, TeasResponse } from '@/model/tea'
 import { meState } from '@/stores/me'
 
 import { styles } from './style.css'
@@ -28,12 +28,12 @@ const calcTeas = (teas: Tea[] | undefined) => {
 
 export default function Teas() {
 	const me = useRecoilValue(meState)
-	const { data: teas } = useSWR<Tea[]>(
+	const { data: teas } = useSWR<TeasResponse>(
 		me.name && `${getApiOrigin()}/api/teas/${me.name}`,
 		fetcher,
 	)
 
-	const shownTeas = calcTeas(teas)
+	const shownTeas = calcTeas(teas?.teas)
 
 	return (
 		<div className={styles.container}>

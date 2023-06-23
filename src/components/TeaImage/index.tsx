@@ -6,14 +6,14 @@ import useSWR from 'swr'
 
 import { getApiOrigin } from '@/libs/env'
 import { fetcher } from '@/libs/fetcher'
-import { Tea } from '@/model/tea'
+import { TeasResponse } from '@/model/tea'
 import { meState } from '@/stores/me'
 
 import { styles } from './style.css'
 
 export default function TeaImage() {
 	const me = useRecoilValue(meState)
-	const { data: teas } = useSWR<Tea[]>(
+	const { data: teas } = useSWR<TeasResponse>(
 		`${getApiOrigin()}/api/teas/${me.name}`,
 		fetcher,
 	)
@@ -22,13 +22,13 @@ export default function TeaImage() {
 
 	return (
 		<div className={styles.tea}>
-			{teas.length % 5 === 4 ? (
+			{teas.teas.length % 5 === 4 ? (
 				<Image src='/coffee_max.png' alt='tea' width={420} height={420} />
 			) : (
 				// todo: teas % 0になった瞬間にこぼして空の状態にする
 				<Image src='/coffee_empty.png' alt='tea' width={420} height={420} />
 			)}
-			<div className={styles.count}>{teas.length % 5}/5</div>
+			<div className={styles.count}>{teas.teas.length % 5}/5</div>
 		</div>
 	)
 }

@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { getShowcaseUser } from '@/libs/auth'
 import { connectDb } from '@/libs/db'
+import { initUsers } from '@/libs/initUsers'
 import { User as UserType } from '@/model/user'
 
 type User = UserType & RowDataPacket
@@ -16,9 +17,11 @@ export async function GET(req: NextRequest) {
 	let connection: Connection | undefined
 	try {
 		connection = await connectDb()
-
-		//todo: アプリ起動時にtraQから取ってDBに入れるように
 		const [rows] = await connection.execute<User[]>('SELECT name FROM users')
+		if (rows.length === 0) {
+			const users = await initUsers(connection)
+			return NextResponse.json(users)
+		}
 
 		return NextResponse.json(rows)
 	} catch (e) {

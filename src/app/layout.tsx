@@ -2,11 +2,8 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 
 import { Providers } from '@/components/Provider'
-import { initMock } from '@/mocks/main'
 
 const inter = Inter({ subsets: ['latin'] })
-
-initMock()
 
 export const metadata = {
 	title: 'ThanQ_you',
