@@ -3,6 +3,7 @@
 import { Button, Rating, Textarea } from '@mantine/core'
 import Image from 'next/image'
 import { useState } from 'react'
+import { useSWRConfig } from 'swr'
 
 import { getApiOrigin } from '@/libs/env'
 import { TeaRequest } from '@/model/tea'
@@ -13,6 +14,7 @@ export default function TeaForm({ userId }: { userId: string }) {
 	const [teaCount, setTeaCount] = useState(0)
 	const [message, setMessage] = useState('')
 	const [isSending, setIsSending] = useState(false)
+	const { mutate } = useSWRConfig()
 
 	const handleAddTea = async () => {
 		if (teaCount === 0) return
@@ -28,6 +30,7 @@ export default function TeaForm({ userId }: { userId: string }) {
 			})
 			setTeaCount(0)
 			setMessage('')
+			mutate(`${getApiOrigin()}/api/teas/${userId}`)
 		} catch {
 			alert('送信に失敗しました')
 		}
