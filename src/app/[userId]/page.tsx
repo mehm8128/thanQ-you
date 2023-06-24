@@ -1,5 +1,7 @@
 'use client'
 
+import { Button } from '@mantine/core'
+import Link from 'next/link'
 import useSWR from 'swr'
 
 import Header from '@/components/Header'
@@ -62,8 +64,11 @@ export default function UserTea({
 	return (
 		<div className={styles.container}>
 			<Header unreads={unreads} userId={userId} />
+			<Link href='/'>
+				<Button>ホームへ</Button>
+			</Link>
 			<div>
-			<TeaImage userId={userId}/>
+				<TeaImage userId={userId} />
 				<div className={styles.form}>
 					<TeaForm userId={userId} />
 				</div>
