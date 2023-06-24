@@ -1,3 +1,7 @@
+'use client'
+
+import useSWR from 'swr'
+
 import { styles } from '@/app/style.css'
 
 import Header from '@/components/Header'
@@ -5,6 +9,7 @@ import TeaImage from '@/components/TeaImage'
 import UserSelect from '@/components/UserSelect'
 
 import { getApiOrigin } from '@/libs/env'
+import { fetcher } from '@/libs/fetcher'
 import { TeaWithUnread } from '@/model/tea'
 import { User } from '@/model/user'
 
@@ -54,9 +59,11 @@ const useUnreads = async (): Promise<TeaWithUnread[]> => {
 	return await res.json()
 }
 
-export default async function Home() {
-	const users = await useUsers()
-	const unreads = await useUnreads()
+export default function Home() {
+	// const users = await useUsers()
+	// const unreads = await useUnreads()
+	const { data: users } = useSWR(`${getApiOrigin()}/api/users`, fetcher)
+	const { data: unreads } = useSWR(`${getApiOrigin()}/api/unreads`, fetcher)
 
 	if (!users || !unreads) return <div>loading...</div>
 

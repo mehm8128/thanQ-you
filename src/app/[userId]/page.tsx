@@ -1,9 +1,13 @@
+'use client'
+
 import Image from 'next/image'
+import useSWR from 'swr'
 
 import Header from '@/components/Header'
 import TeaForm from '@/components/TeaForm'
 
 import { getApiOrigin } from '@/libs/env'
+import { fetcher } from '@/libs/fetcher'
 import { TeaWithUnread } from '@/model/tea'
 
 import { styles } from './style.css'
@@ -45,12 +49,13 @@ const useUnreads = async (): Promise<TeaWithUnread[]> => {
 	return await res.json()
 }
 
-export default async function UserTea({
+export default function UserTea({
 	params: { userId },
 }: {
 	params: { userId: string }
 }) {
-	const unreads = await useUnreads()
+	//const unreads = await useUnreads()
+	const { data: unreads } = useSWR(`${getApiOrigin()}/api/unreads`, fetcher)
 
 	if (!unreads) return <div>loading...</div>
 
