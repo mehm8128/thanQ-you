@@ -35,6 +35,8 @@ export default function Teas({ userId }: { userId?: string }) {
 
 	const shownTeas = calcTeas(teas?.teas)
 
+	if (!teas) return <div>loading...</div>
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.teaContainer}>
@@ -51,7 +53,7 @@ export default function Teas({ userId }: { userId?: string }) {
 					</div>
 				))}
 			</div>
-			<div>計{shownTeas.length}</div>
+			<div>計{teas?.total_count}</div>
 		</div>
 	)
 }

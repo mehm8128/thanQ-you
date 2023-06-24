@@ -15,6 +15,7 @@ export default function TeaForm({ userId }: { userId: string }) {
 	const [isSending, setIsSending] = useState(false)
 
 	const handleAddTea = async () => {
+		if (teaCount === 0) return
 		setIsSending(true)
 		const requestData: TeaRequest = {
 			count: teaCount,

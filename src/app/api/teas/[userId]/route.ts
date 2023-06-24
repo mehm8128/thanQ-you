@@ -75,7 +75,9 @@ export async function POST(
 		try {
 			const secret = process.env.NEXT_PUBLIC_TRAQ_ACCESS_TOKEN
 			const requestData = {
-				content: `@${userID} から${data.count}杯のお茶:tea:が注がれました\n>${data.message}`,
+				content: `@${userID} から${data.count}杯のお茶:tea:が注がれました${
+					data.message ? '\n>' + data.message : ''
+				} `,
 				embed: true,
 			}
 			const traqUsersRes = await fetch(
