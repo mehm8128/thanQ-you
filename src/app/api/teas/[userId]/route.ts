@@ -32,7 +32,7 @@ export async function GET(
 		)
 		const [rows2] = await connection.execute<TeaTotalCount[]>(
 			'SELECT SUM(count) as total_count FROM teas WHERE `to` = ?',
-			[userID],
+			[targetUserId],
 		)
 
 		const res: TeasResponse = {
