@@ -1,10 +1,10 @@
 'use client'
 
-import Image from 'next/image'
 import useSWR from 'swr'
 
 import Header from '@/components/Header'
 import TeaForm from '@/components/TeaForm'
+import TeaImage from '@/components/TeaImage'
 
 import { getApiOrigin } from '@/libs/env'
 import { fetcher } from '@/libs/fetcher'
@@ -62,17 +62,8 @@ export default function UserTea({
 	return (
 		<div className={styles.container}>
 			<Header unreads={unreads} userId={userId} />
-			<div className={styles.tea}>
-				<div className={styles.tea}>
-					<Image src='/coffee_empty.png' alt='tea' width={420} height={420} />
-					<Image
-						src='/pot.png'
-						alt='tea'
-						width={360}
-						height={360}
-						className={styles.pot}
-					/>
-				</div>
+			<div>
+			<TeaImage userId={userId}/>
 				<div className={styles.form}>
 					<TeaForm userId={userId} />
 				</div>

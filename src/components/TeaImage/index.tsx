@@ -11,10 +11,10 @@ import { meState } from '@/stores/me'
 
 import { styles } from './style.css'
 
-export default function TeaImage() {
+export default function TeaImage({ userId }: { userId?: string }) {
 	const me = useRecoilValue(meState)
 	const { data: teas } = useSWR<TeasResponse>(
-		me.name && `${getApiOrigin()}/api/teas/${me.name}`,
+		me.name && `${getApiOrigin()}/api/teas/${userId ?? me.name}`,
 		fetcher,
 	)
 
@@ -22,13 +22,22 @@ export default function TeaImage() {
 
 	return (
 		<div className={styles.tea}>
-			{teas.teas.length % 5 === 4 ? (
+			{teas.total_count % 5 === 4 ? (
 				<Image src='/coffee_max.png' alt='tea' width={420} height={420} />
 			) : (
 				// todo: teas % 0になった瞬間にこぼして空の状態にする
 				<Image src='/coffee_empty.png' alt='tea' width={420} height={420} />
 			)}
-			<div className={styles.count}>{teas.teas.length % 5}/5</div>
+			{userId && (
+				<Image
+					src='/pot.png'
+					alt='tea'
+					width={360}
+					height={360}
+					className={styles.pot}
+				/>
+			)}
+			<div className={styles.count}>{teas.total_count % 5}/5</div>
 		</div>
 	)
 }

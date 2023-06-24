@@ -4,7 +4,9 @@ export const styles = {
 	container: style({}),
 	unreadList: style({
 		listStyle: 'none',
-		padding: 0,
+		paddingRight: '1rem',
+		maxHeight: '20rem',
+		overflowY: 'auto',
 	}),
 	unreadItem: style({
 		display: 'flex',

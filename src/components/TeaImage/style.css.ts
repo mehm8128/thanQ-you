@@ -6,6 +6,11 @@ export const styles = {
 		textAlign: 'center',
 		position: 'relative',
 	}),
+	pot: style({
+		position: 'absolute',
+		top: 0,
+		right: 240,
+	}),
 	count: style({
 		position: 'absolute',
 		bottom: 0,
