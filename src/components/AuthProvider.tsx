@@ -8,9 +8,7 @@ import { Me } from '@/model/user'
 import { meState } from '@/stores/me'
 
 const fetchMe = async (): Promise<Me> => {
-	const res = await fetch(`${getApiOrigin()}/api/me`, {
-		next: { revalidate: 60 },
-	})
+	const res = await fetch(`${getApiOrigin()}/api/me`)
 	if (!res.ok) throw new Error('エラーが発生しました')
 	return await res.json()
 }

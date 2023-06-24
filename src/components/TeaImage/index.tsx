@@ -14,7 +14,7 @@ import { styles } from './style.css'
 export default function TeaImage() {
 	const me = useRecoilValue(meState)
 	const { data: teas } = useSWR<TeasResponse>(
-		`${getApiOrigin()}/api/teas/${me.name}`,
+		me.name && `${getApiOrigin()}/api/teas/${me.name}`,
 		fetcher,
 	)
 
