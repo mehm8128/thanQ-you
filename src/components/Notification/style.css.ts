@@ -1,7 +1,9 @@
 import { globalStyle, style } from '@vanilla-extract/css'
 
 export const styles = {
-	container: style({}),
+	dropdown: style({
+		padding: '1rem 0 1rem 0.5rem',
+	}),
 	unreadList: style({
 		listStyle: 'none',
 		paddingRight: '1rem',
@@ -13,6 +15,12 @@ export const styles = {
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		gap: '0.5rem',
+		padding: '0.5rem 1rem',
+		selectors: {
+			'&[data-unread="true"]': {
+				backgroundColor: '#f5f5f5',
+			},
+		},
 	}),
 	message: style({}),
 	createdAt: style({

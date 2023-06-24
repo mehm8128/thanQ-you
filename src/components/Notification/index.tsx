@@ -16,7 +16,7 @@ export default function Notification({
 	const handleClick = () => {}
 
 	return (
-		<div className={styles.container}>
+		<div>
 			<Popover>
 				<Popover.Target>
 					<Button color='dark' variant='outline' onClick={handleClick}>
@@ -29,11 +29,15 @@ export default function Notification({
 					</Button>
 				</Popover.Target>
 
-				<Popover.Dropdown>
+				<Popover.Dropdown className={styles.dropdown}>
 					{unreads.length > 0 ? (
 						<ul className={styles.unreadList}>
 							{unreads.map(unread => (
-								<li className={styles.unreadItem} key={unread.id}>
+								<li
+									className={styles.unreadItem}
+									key={unread.id}
+									data-unread={unread.unread}
+								>
 									<Image
 										src={`https://q.trap.jp/api/v3/public/icon/${unread.from}`}
 										alt={unread.from}
