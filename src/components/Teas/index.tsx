@@ -53,7 +53,7 @@ export default function Teas({ userId }: { userId?: string }) {
 					</div>
 				))}
 			</div>
-			<div>計{teas?.total_count}</div>
+			<div>計{teas.total_count}</div>
 		</div>
 	)
 }

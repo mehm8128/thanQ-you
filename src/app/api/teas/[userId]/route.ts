@@ -37,7 +37,7 @@ export async function GET(
 
 		const res: TeasResponse = {
 			teas: rows,
-			total_count: rows2[0].total_count,
+			total_count: rows2[0].total_count ?? 0, // todo: SUM(count)の方を直す
 		}
 		return NextResponse.json(res)
 	} catch (e) {
