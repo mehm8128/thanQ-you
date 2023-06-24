@@ -61,7 +61,7 @@ export default function UserTea({
 
 	return (
 		<div className={styles.container}>
-			<Header unreads={unreads} />
+			<Header unreads={unreads} userId={userId} />
 			<div className={styles.tea}>
 				<div className={styles.tea}>
 					<Image src='/coffee_empty.png' alt='tea' width={420} height={420} />
@@ -74,7 +74,7 @@ export default function UserTea({
 					/>
 				</div>
 				<div className={styles.form}>
-					<TeaForm />
+					<TeaForm userId={userId} />
 				</div>
 			</div>
 		</div>

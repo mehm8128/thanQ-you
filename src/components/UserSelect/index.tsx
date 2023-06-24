@@ -25,6 +25,8 @@ export default function UserSelect({ users }: Props) {
 			<Select
 				label=''
 				placeholder='ユーザーを選択'
+				searchable
+				nothingFound='ユーザーが見つかりませんでした'
 				onChange={val => val && handleSelectUser(val)}
 				data={users.map(user => user.name).filter(user => user !== me.name)}
 			/>

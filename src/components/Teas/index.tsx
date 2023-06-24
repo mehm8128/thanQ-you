@@ -26,10 +26,10 @@ const calcTeas = (teas: Tea[] | undefined) => {
 	return shownTeas
 }
 
-export default function Teas() {
+export default function Teas({ userId }: { userId?: string }) {
 	const me = useRecoilValue(meState)
 	const { data: teas } = useSWR<TeasResponse>(
-		me.name && `${getApiOrigin()}/api/teas/${me.name}`,
+		me.name && `${getApiOrigin()}/api/teas/${userId ?? me.name}`,
 		fetcher,
 	)
 
@@ -37,19 +37,21 @@ export default function Teas() {
 
 	return (
 		<div className={styles.container}>
-			{shownTeas.slice(0, 100).map((tea, i) => (
-				<div key={i}>
-					<Image
-						src={
-							tea === 5 ? '/coffee_max_small.svg' : '/coffee_empty_small.svg'
-						}
-						alt={tea.toString()}
-						width={32}
-						height={32}
-					/>
-				</div>
-			))}
-			{shownTeas.length > 100 && <div>+{shownTeas.length - 100}</div>}
+			<div className={styles.teaContainer}>
+				{shownTeas.slice(0, 100).map((tea, i) => (
+					<div key={i}>
+						<Image
+							src={
+								tea === 5 ? '/coffee_max_small.svg' : '/coffee_empty_small.svg'
+							}
+							alt={tea.toString()}
+							width={32}
+							height={32}
+						/>
+					</div>
+				))}
+			</div>
+			<div>計{shownTeas.length}</div>
 		</div>
 	)
 }

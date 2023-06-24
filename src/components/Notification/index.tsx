@@ -30,26 +30,30 @@ export default function Notification({
 				</Popover.Target>
 
 				<Popover.Dropdown>
-					<ul className={styles.unreadList}>
-						{unreads.map(unread => (
-							<li className={styles.unreadItem} key={unread.id}>
-								<Image
-									src={`https://q.trap.jp/api/v3/public/icon/${unread.from}`}
-									alt={unread.from}
-									width={32}
-									height={32}
-									style={{ borderRadius: '50%' }}
-								/>
-								<p className={styles.message}>
-									{unread.from} さんからティーをもらいました。
-									<br />「{unread.message}」
-								</p>
-								<div className={styles.createdAt}>
-									{formatDate(new Date(unread.created_at))}
-								</div>
-							</li>
-						))}
-					</ul>
+					{unreads.length > 0 ? (
+						<ul className={styles.unreadList}>
+							{unreads.map(unread => (
+								<li className={styles.unreadItem} key={unread.id}>
+									<Image
+										src={`https://q.trap.jp/api/v3/public/icon/${unread.from}`}
+										alt={unread.from}
+										width={32}
+										height={32}
+										style={{ borderRadius: '50%' }}
+									/>
+									<p className={styles.message}>
+										{unread.from} さんからティーをもらいました。
+										<br />「{unread.message}」
+									</p>
+									<div className={styles.createdAt}>
+										{formatDate(new Date(unread.created_at))}
+									</div>
+								</li>
+							))}
+						</ul>
+					) : (
+						<div>まだ通知はありません。</div>
+					)}
 				</Popover.Dropdown>
 			</Popover>
 		</div>

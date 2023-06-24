@@ -5,11 +5,17 @@ import { TeaWithUnread } from '@/model/tea'
 
 import { styles } from './style.css'
 
-export default function Header({ unreads }: { unreads: TeaWithUnread[] }) {
+export default function Header({
+	unreads,
+	userId,
+}: {
+	unreads: TeaWithUnread[]
+	userId?: string
+}) {
 	return (
 		<div className={styles.header}>
 			<div className={styles.teas}>
-				<Teas />
+				<Teas userId={userId} />
 			</div>
 			<div className={styles.notification}>
 				<Notification unreads={unreads} />
